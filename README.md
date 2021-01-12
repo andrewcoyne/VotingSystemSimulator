@@ -7,5 +7,5 @@ Plurality - the election format that the United States uses for its presidential
 
 
 Voting systems to be implemented:
-Ranked Choice - Also known as instant-runoff voting, it allows voters to indicate relative preferences and makes more votes meaningful
-Copeland-Borda - Voters rank the candidates, who are assigned points based on these rankings; relative rankings on ballots are used as tiebreakers
+ * Ranked Choice - Also known as instant-runoff voting, it allows voters to indicate relative preferences and makes more votes meaningful
+ * Copeland-Borda - Voters rank the candidates, who are assigned points based on these rankings; relative rankings on ballots are used as tiebreakers
