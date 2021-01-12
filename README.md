@@ -3,7 +3,7 @@ The Voting System Simulator is intended to simulate various methods of voting an
 
 
 Current voting systems added:
-Plurality - the election format that the United States uses for its presidential elections.
+ * Plurality - the election format that the United States uses for its presidential elections.
 
 
 Voting systems to be implemented:
