@@ -7,7 +7,7 @@ public class Voting {
     }
 
     private synchronized static void simulate(String votingSystem, int electionsToSimulate, int numOfVoters, ArrayList<Candidate> candidates, boolean printElectionResults){
-        final int[] condorcetWins = {0};
+        final int[] condorcetWins = {0,0};
         for (int i = 1; i <= electionsToSimulate; i++) {
             Thread thread = new Thread(""+i) {
                 public synchronized void run(){
@@ -29,6 +29,8 @@ public class Voting {
                     if(printElectionResults){
                         printResults(results, condorcetWinner, numOfVoters);
                     }
+
+                    condorcetWins[1]++;
                 }
             };
             thread.start();
@@ -37,9 +39,9 @@ public class Voting {
         boolean wait = true;
         while(wait){
             StringBuilder str = new StringBuilder(140);
-            str.append("\r").append(condorcetWins[0]).append("/").append(electionsToSimulate).append(" election(s) simulated");
+            str.append("\r").append(condorcetWins[1]).append("/").append(electionsToSimulate).append(" election(s) simulated");
             System.out.print(str);
-            if(condorcetWins[0] == electionsToSimulate){
+            if(condorcetWins[1] == electionsToSimulate){
                 str.append("\r").append(electionsToSimulate).append("/").append(electionsToSimulate).append(" election(s) simulated");
                 System.out.print(str);
                 System.out.println("");
@@ -50,7 +52,7 @@ public class Voting {
     }
 
     private synchronized static void simulateRandom(String votingSystem, int electionsToSimulate, int numOfVoters, int numOfCandidates, boolean printElectionResults){
-        final int[] condorcetWins = {0};
+        final int[] condorcetWins = {0,0};
         for (int i = 1; i <= electionsToSimulate; i++) {
             Thread thread = new Thread(""+i) {
                 public synchronized void run(){
@@ -77,6 +79,8 @@ public class Voting {
                     if(printElectionResults){
                         printResults(results, condorcetWinner, numOfVoters);
                     }
+
+                    condorcetWins[1]++;
                 }
             };
             thread.start();
@@ -85,9 +89,9 @@ public class Voting {
         boolean wait = true;
         while(wait){
             StringBuilder str = new StringBuilder(140);
-            str.append("\r").append(condorcetWins[0]).append("/").append(electionsToSimulate).append(" election(s) simulated");
+            str.append("\r").append(condorcetWins[1]).append("/").append(electionsToSimulate).append(" election(s) simulated");
             System.out.print(str);
-            if(condorcetWins[0] == electionsToSimulate){
+            if(condorcetWins[1] == electionsToSimulate){
                 str.append("\r").append(electionsToSimulate).append("/").append(electionsToSimulate).append(" election(s) simulated");
                 System.out.print(str);
                 System.out.println("");
