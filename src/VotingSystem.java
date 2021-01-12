@@ -17,7 +17,7 @@ public class VotingSystem {
         generateCondorcetMatchups(candidates);
     }
 
-    public VotingSystem (VotingSystem vs) {
+    public VotingSystem (VotingSystem vs) { // for creating copies of each individual voting system
         electionCandidates = vs.electionCandidates;
         numVoters = vs.numVoters;
         numVotesCast = vs.numVotesCast;
@@ -54,7 +54,7 @@ public class VotingSystem {
         }
     }
 
-    public void updateCondorcet(ArrayList<Candidate> preferredCandidates){
+    public void updateCondorcet(ArrayList<Candidate> preferredCandidates){ // updates the Condorcet matchups, so the Condorcet winner can be determined
         for (ArrayList<Integer> matchupScoreSet : condorcetScore){
             int index = condorcetScore.indexOf(matchupScoreSet);
             ArrayList<Candidate> matchup = condorcetMatchups.get(index);
@@ -66,7 +66,7 @@ public class VotingSystem {
         }
     }
 
-    public void vote() {
+    public void vote() { // default voting strategy - the voter just votes for their favorite candidate
         for (int i = 0; i < numVoters; i++) {
             Voter v = new Voter();
             ArrayList<Candidate> preferredCandidates = v.getFavCandidates(electionCandidates);
@@ -77,7 +77,7 @@ public class VotingSystem {
         }
     }
 
-    public void sortCandidates() {
+    public void sortCandidates() { // sorts candidates from most to least votes
         electionCandidates.sort(Comparator.comparingInt(Candidate::getVotes));
         Collections.reverse(electionCandidates);
     }
@@ -90,11 +90,11 @@ public class VotingSystem {
 
             for (ArrayList<Candidate> matchup : condorcetMatchups){
                 if (matchup.contains(c)) {
-                    int cIndex = matchup.indexOf(c);
-                    int mIndex = condorcetMatchups.indexOf(matchup);
-                    int cScore = condorcetScore.get(mIndex).get(cIndex);
+                    int cIndex = matchup.indexOf(c); // index of the given candidate within the matchup
+                    int mIndex = condorcetMatchups.indexOf(matchup); // index of the matchup being examined within the ArrayList of all matchups
+                    int cScore = condorcetScore.get(mIndex).get(cIndex); // gets the number of people who support the given candidate
                     int oIndex = 2;
-                    switch(cIndex){
+                    switch(cIndex){  // gets the index of the other candidate within the matchup
                         case 0: oIndex = 1; break;
                         case 1: oIndex = 0; break;
                     }
@@ -108,7 +108,7 @@ public class VotingSystem {
                 }
             }
 
-            if (matchupsWon == (electionCandidates.size() - 1)){
+            if (matchupsWon == (electionCandidates.size() - 1)){ // if a candidate won every matchup they had, they are the Condorcet winner
                 condorcetWinner = c;
                 //System.out.println("Condorcet winner found!");
             }

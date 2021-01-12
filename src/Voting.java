@@ -7,7 +7,7 @@ public class Voting {
     }
 
     private synchronized static void simulate(String votingSystem, int electionsToSimulate, int numOfVoters, ArrayList<Candidate> candidates, boolean printElectionResults){
-        final int[] condorcetWins = {0,0};
+        final int[] condorcetWins = {0,0}; // see comment in other method
         for (int i = 1; i <= electionsToSimulate; i++) {
             Thread thread = new Thread(""+i) {
                 public synchronized void run(){
@@ -52,7 +52,7 @@ public class Voting {
     }
 
     private synchronized static void simulateRandom(String votingSystem, int electionsToSimulate, int numOfVoters, int numOfCandidates, boolean printElectionResults){
-        final int[] condorcetWins = {0,0};
+        final int[] condorcetWins = {0,0}; // [0] tracks the number of times the Condorcet candidate wins the election, [1] tracks the number of completed elections
         for (int i = 1; i <= electionsToSimulate; i++) {
             Thread thread = new Thread(""+i) {
                 public synchronized void run(){

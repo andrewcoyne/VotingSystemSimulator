@@ -36,7 +36,7 @@ public class Voter {
         return y;
     }
 
-    public double getProximity(double candidateEconPos, double candidateSocPos){
+    public double getProximity(double candidateEconPos, double candidateSocPos){ // the lower this number, the more a voter agrees with the given candidate
         double econPosDist = x - candidateEconPos;
         double socPosDist = y - candidateSocPos;
         return Math.sqrt((Math.pow(econPosDist,2)) + (Math.pow(socPosDist,2))); // Pythagorean Theorem
