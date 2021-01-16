@@ -17,7 +17,7 @@ public class Plurality extends VotingSystem {
             if(numVotesCast > (preferredCandidates.size() * 5)) {
                 int j = r.nextInt(100); // account for third-party voters
                 if(j > 2) {
-                    sortCandidates();
+                    //sortCandidates();
                     if(electionCandidates.get(0).getVoterProximity(v.x,v.y) < electionCandidates.get(1).getVoterProximity(v.x,v.y)){
                         electionCandidates.get(0).voteFor();
                     }else{
@@ -28,6 +28,7 @@ public class Plurality extends VotingSystem {
                 }
             }else{
                 preferredCandidates.get(0).voteFor();
+                sortCandidates();
             }
 
             updateCondorcet(preferredCandidates);
