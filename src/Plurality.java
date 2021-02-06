@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Random;
 
 public class Plurality extends VotingSystem {
@@ -17,8 +16,8 @@ public class Plurality extends VotingSystem {
             if(numVotesCast > (preferredCandidates.size() * 5)) {
                 int j = r.nextInt(100); // account for third-party voters
                 if(j > 2) {
-                    //sortCandidates();
-                    if(electionCandidates.get(0).getVoterProximity(v.x,v.y) < electionCandidates.get(1).getVoterProximity(v.x,v.y)){
+                    sortCandidates();
+                    if(electionCandidates.get(0).getVoterProximity(v.econPos, v.socialPos) < electionCandidates.get(1).getVoterProximity(v.econPos, v.socialPos)){
                         electionCandidates.get(0).voteFor();
                     }else{
                         electionCandidates.get(1).voteFor();

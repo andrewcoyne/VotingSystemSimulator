@@ -3,10 +3,10 @@ import java.util.ArrayList;
 public class Voting {
     public static void main(String[] args){
         System.out.println("Running voting system simulations...");
-        simulateRandom("plurality",500,500000,4, false);
+        simulateRandom("plurality",5,50000,4);
     }
 
-    private synchronized static void simulate(String votingSystem, int electionsToSimulate, int numOfVoters, ArrayList<Candidate> candidates, boolean printElectionResults){
+    private synchronized static void simulate(String votingSystem, int electionsToSimulate, int numOfVoters, ArrayList<Candidate> candidates){
         final int[] condorcetWins = {0,0}; // see comment in other method
         for (int i = 1; i <= electionsToSimulate; i++) {
             Thread thread = new Thread(""+i) {
@@ -25,11 +25,11 @@ public class Voting {
                     if (condorcetWinner.equals(results.get(0))) {
                         condorcetWins[0]++;
                     }
-
+                    /* synchronization issues
                     if(printElectionResults){
-                        printResults(results, condorcetWinner, numOfVoters);
+                        printResults(this.getName(), results, condorcetWinner, numOfVoters);
                     }
-
+                    */
                     condorcetWins[1]++;
                 }
             };
@@ -51,7 +51,7 @@ public class Voting {
         }
     }
 
-    private synchronized static void simulateRandom(String votingSystem, int electionsToSimulate, int numOfVoters, int numOfCandidates, boolean printElectionResults){
+    private synchronized static void simulateRandom(String votingSystem, int electionsToSimulate, int numOfVoters, int numOfCandidates){
         final int[] condorcetWins = {0,0}; // [0] tracks the number of times the Condorcet candidate wins the election, [1] tracks the number of completed elections
         for (int i = 1; i <= electionsToSimulate; i++) {
             Thread thread = new Thread(""+i) {
@@ -75,11 +75,11 @@ public class Voting {
                     if (condorcetWinner.equals(results.get(0))) {
                         condorcetWins[0]++;
                     }
-
+                    /* synchronization issues
                     if(printElectionResults){
-                        printResults(results, condorcetWinner, numOfVoters);
+                        printResults(this.getName(), results, condorcetWinner, numOfVoters);
                     }
-
+                    */
                     condorcetWins[1]++;
                 }
             };
@@ -104,8 +104,17 @@ public class Voting {
     private static void printResults(ArrayList<Candidate> results, Candidate condorcetWinner, int numOfVoters){
         System.out.println("Condorcet Winner: " + condorcetWinner.candidateName);
         for(Candidate c : results) {
-            System.out.println(c.candidateName + " (" + ((double)Math.round(c.x*100)/100) +
-                    "," + ((double)Math.round(c.y*100)/100) + "): " + c.getVotes() +
+            System.out.println(c.candidateName + " (" + ((double)Math.round(c.econPos *100)/100) +
+                    "," + ((double)Math.round(c.socialPos *100)/100) + "): " + c.getVotes() +
+                    " votes (" + Math.round((c.getVotes() / (double) numOfVoters) * 100) + "%)");
+        }
+    }
+
+    private static void printResults(String electionNumber, ArrayList<Candidate> results, Candidate condorcetWinner, int numOfVoters){
+        System.out.println("Election #" + electionNumber + " Condorcet Winner: " + condorcetWinner.candidateName);
+        for(Candidate c : results) {
+            System.out.println(c.candidateName + " (" + ((double)Math.round(c.econPos *100)/100) +
+                    "," + ((double)Math.round(c.socialPos *100)/100) + "): " + c.getVotes() +
                     " votes (" + Math.round((c.getVotes() / (double) numOfVoters) * 100) + "%)");
         }
     }
